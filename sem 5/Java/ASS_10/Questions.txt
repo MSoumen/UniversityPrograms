@@ -1,0 +1,7 @@
+// Q1:  write a program in java to implement exception handling in such a manner that 
+	there should be two try blocks  one of which will be generating a NullPointerException 
+	followed by a finally block which will display the message "Display inspite of NullPointerException"
+	 and another try block should contain an explicit literal statement followed by a finally block that 
+	displays the message "Display inspite of return";
+
+// Q2: WAP in java to create a user defined exception and tackle it in your own convienient manner.
