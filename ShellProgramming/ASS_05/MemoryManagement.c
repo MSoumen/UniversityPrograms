@@ -1,4 +1,4 @@
-#include <stdio.h>
+    #include <stdio.h>
 #include <stdlib.h>
 #include <limits.h>
 
@@ -30,30 +30,23 @@ void display(){
 	printf("NULL \n");
 }
 
-// void updateHole(struct node *newProcessPtr, int newProcessActualSize){
-	// // printf("PID=%c, PSIZE=%d, PSTART=%d, Pnext=%p\n", newProcessPtr->pid, newProcessPtr->size, newProcessPtr->start, newProcessPtr->next);
-	// struct node newNode;
-	// newNode.pid='Z';
-	// newNode.start = (int)(newProcessPtr->start) +newProcessActualSize;
-	// newNode.size=newProcessPtr->size-newProcessActualSize;
-	// newNode.next = newProcessPtr->next;
-	// 
-	// newProcessPtr->next= &newNode;
-	// newProcessPtr->size=newProcessActualSize;
-// }
-
 void updateHole(struct node *newProcessPtr, int newProcessActualSize){
-	// printf("PID=%c, PSIZE=%d, PSTART=%d, Pnext=%p\n", newProcessPtr->pid, newProcessPtr->size, newProcessPtr->start, newProcessPtr->next);
-	struct node n;
-	struct node *newNode=&n;
-	newNode->pid='Z'; 
-	newNode->start = (int)(newProcessPtr->start) +newProcessActualSize; 
-	newNode->size=newProcessPtr->size-newProcessActualSize;
-	newNode->next = newProcessPtr->next;
-	 
+	if(newProcessPtr->size==newProcessActualSize) return; //if hole is filled completely then do nothing
+	
+	struct node newNode;
+	newNode.pid='Z';
+	newNode.start = (int)(newProcessPtr->start) + newProcessActualSize;
+	newNode.size=newProcessPtr->size-newProcessActualSize;
+	newNode.next = newProcessPtr->next;
+	
+	newProcessPtr->next= &newNode;
 	newProcessPtr->size=newProcessActualSize;
-	newProcessPtr->next= newNode;
+
+	printf("Old : PID=%c, PSIZE=%d, PSTART=%d\n", newProcessPtr->pid, newProcessPtr->size, newProcessPtr->start);
+	printf("Updated newProcessPtr->next : PID=%c, PSIZE=%d, PSTART=%d\n", newProcessPtr->next->pid, newProcessPtr->next->size, newProcessPtr->next->start);
+	printf("Updated newNode.next : PID=%c, PSIZE=%d, PSTART=%d\n", newNode.next->pid, newNode.next->size, newNode.next->start);
 }
+
 
 void bestFit(char pid, int size){
 	int minDiff = INT_MAX, diff;
