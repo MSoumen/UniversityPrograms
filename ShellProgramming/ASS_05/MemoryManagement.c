@@ -30,43 +30,70 @@ void display(){
 	printf("NULL \n");
 }
 
+// void updateHole(struct node *newProcessPtr, int newProcessActualSize){
+	// // printf("PID=%c, PSIZE=%d, PSTART=%d, Pnext=%p\n", newProcessPtr->pid, newProcessPtr->size, newProcessPtr->start, newProcessPtr->next);
+	// struct node newNode;
+	// newNode.pid='Z';
+	// newNode.start = (int)(newProcessPtr->start) +newProcessActualSize;
+	// newNode.size=newProcessPtr->size-newProcessActualSize;
+	// newNode.next = newProcessPtr->next;
+	// 
+	// newProcessPtr->next= &newNode;
+	// newProcessPtr->size=newProcessActualSize;
+// }
+
+void updateHole(struct node *newProcessPtr, int newProcessActualSize){
+	// printf("PID=%c, PSIZE=%d, PSTART=%d, Pnext=%p\n", newProcessPtr->pid, newProcessPtr->size, newProcessPtr->start, newProcessPtr->next);
+	struct node n;
+	struct node *newNode=&n;
+	newNode->pid='Z'; 
+	newNode->start = (int)(newProcessPtr->start) +newProcessActualSize; 
+	newNode->size=newProcessPtr->size-newProcessActualSize;
+	newNode->next = newProcessPtr->next;
+	 
+	newProcessPtr->size=newProcessActualSize;
+	newProcessPtr->next= newNode;
+}
+
 void bestFit(char pid, int size){
-	int minDiff = INT_MAX;
+	int minDiff = INT_MAX, diff;
 	struct node *place;
 	struct node *ptr=head;
 	while(ptr!=NULL){
 		if(ptr->pid=='Z'){
-			int diff= ptr->size - size;
+			diff= ptr->size - size;
 		
-			if(diff<minDiff){
+			if(diff>=0 && diff<minDiff){
 				minDiff = diff;	
 				place = ptr;
 			}
 		}
 		ptr = ptr->next;
 	}
-	if(minDiff<0){ printf("Process Can't allocated! [size exceded]\n"); return;}
+	if(diff<0 && minDiff==INT_MAX){ printf("Process Can't allocated! [size exceded]\n"); return;}
 	place->pid=pid;
+	updateHole(place, size);
 	return;
 }
 
 void worstFit(char pid, int size){
-	int minDiff = INT_MIN;
+	int minDiff = INT_MIN, diff;
 	struct node *place;
 	struct node *ptr=head;
 	while(ptr!=NULL){
 		if(ptr->pid=='Z'){
-			int diff= ptr->size - size;
+			diff= ptr->size - size;
 			
-			if(diff>minDiff){
+			if(diff>=0 && diff>minDiff){
 				minDiff = diff;	
 				place = ptr;
 			}
 		}
 		ptr = ptr->next;
 	}
-	if(minDiff<0){ printf("Process Can't allocated! [size exceded]\n"); return;}
+	if(diff<0 && minDiff==INT_MIN){ printf("Process Can't allocated! [size exceded]\n"); return;}
 	place->pid=pid;
+	updateHole(place, size);
 	return;
 }
 
@@ -81,7 +108,9 @@ void firstFit(char pid, int size){
 		}
 		ptr = ptr->next;
 	}
+	
 	if(notAllocated){ printf("Process Can't allocated! [size exceded]\n"); return;}
+	updateHole(ptr, size);
 }
 
 int main(){
