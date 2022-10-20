@@ -33,18 +33,19 @@ void display(){
 void updateHole(struct node *newProcessPtr, int newProcessActualSize){
 	if(newProcessPtr->size==newProcessActualSize) return; //if hole is filled completely then do nothing
 	
-	struct node newNode;
-	newNode.pid='Z';
-	newNode.start = (int)(newProcessPtr->start) + newProcessActualSize;
-	newNode.size=newProcessPtr->size-newProcessActualSize;
-	newNode.next = newProcessPtr->next;
+	struct node *newNode;
+	newNode = (struct node *) malloc(sizeof(struct node));
+	newNode->pid='Z';
+	newNode->start = (int)(newProcessPtr->start) + newProcessActualSize;
+	newNode->size=newProcessPtr->size-newProcessActualSize;
+	newNode->next = newProcessPtr->next;
 	
-	newProcessPtr->next= &newNode;
+	newProcessPtr->next= newNode;
 	newProcessPtr->size=newProcessActualSize;
 
 	printf("Old : PID=%c, PSIZE=%d, PSTART=%d\n", newProcessPtr->pid, newProcessPtr->size, newProcessPtr->start);
 	printf("Updated newProcessPtr->next : PID=%c, PSIZE=%d, PSTART=%d\n", newProcessPtr->next->pid, newProcessPtr->next->size, newProcessPtr->next->start);
-	printf("Updated newNode.next : PID=%c, PSIZE=%d, PSTART=%d\n", newNode.next->pid, newNode.next->size, newNode.next->start);
+	printf("Updated newNode.next : PID=%c, PSIZE=%d, PSTART=%d\n", newNode->next->pid, newNode->next->size, newNode->next->start);
 }
 
 
