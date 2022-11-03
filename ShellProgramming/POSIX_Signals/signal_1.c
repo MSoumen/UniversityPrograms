@@ -18,3 +18,23 @@ int main(void)
 	}
 	return 0;
 }
+
+//OUTPUT
+/*
+Hello World!
+Hello World!
+^CSignal Number 2.
+Hello World!
+^CSignal Number 2.
+Hello World!
+^CSignal Number 2.
+Hello World!
+Hello World!
+Hello World!
+^CSignal Number 2.
+Hello World!
+Hello World!
+Hello World!
+^Z
+[2]+  Stopped                 ./a.out
+*/
