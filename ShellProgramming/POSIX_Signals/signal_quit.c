@@ -17,3 +17,12 @@ int main()
 	}
 	return 0;
 }
+
+//OUTPUT
+/*
+Try to quitting using Ctrl+C
+Try to quitting using Ctrl+C
+Try to quitting using Ctrl+C
+^C
+
+*/
