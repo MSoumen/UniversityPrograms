@@ -1,0 +1,66 @@
+-- # login username = student/student@172.16.1.210:1521/oracle
+-- \ ENTER :: REPEATES LAST QUERY
+
+-- # Q1. create these two table
+
+-- select * from tab;
+create table EMP_39(
+	Empno number,
+	Ename varchar2(30),
+	Job char(10),
+	Mgr number,
+	HireDate date,
+	Sal number,
+	Comm number,
+	Dept char(10));
+
+create table DEPT_39(
+	Dno number,
+	Dname varchar(20),
+	Loc varchar(30));
+
+
+-- # Q2. Add a new attribute 'Phone' to the EMP table
+alter table EMP_39
+	ADD Phone number(10);
+
+-- # Q3. change the datatype of Job to char to varchar
+ALTER TABLE EMP_39
+	MODIFY Job varchar(10);
+
+-- # Q4. remove the attribute 'Phone'
+ALTER TABLE EMP_39
+	DROP COLUMN Phone;
+
+-- # Q5. Describe the table
+DESC EMP_39;
+
+-- # Q6. insert atleast(7-10) 5 record both the table
+INSERT INTO EMP_39 VALUES(
+	12, 'Kanishka Sarkar', 'SDE-1', 21265, '03-SEP-2022', 40000, 122, 'Design'
+);
+INSERT INTO EMP_39 (Empno, Ename, JOB, Mgr, HireDate, Sal, Comm, Dept)
+VALUES(49, 'Eshani Panja', 'Scientist-B', 21260, '08-aug-2022', 40000, 122, 'Research')
+VALUES(40, 'Gautam Banerjea', 'Manager', 21265, '08-aug-2022', 15000, 122, 'Public affair');
+VALUES(49, 'Eshani Panja', 'Scientist-B', 21260, '08--2022', 40000, 122, 'Design'),
+VALUES(49, 'Eshani Panja', 'Scientist-B', 21260, '08--2022', 40000, 122, 'Design'),
+VALUES(49, 'Eshani Panja', 'Scientist-B', 21260, '08--2022', 40000, 122, 'Design'),
+VALUES(49, 'Eshani Panja', 'Scientist-B', 21260, '08--2022', 40000, 122, 'Design');
+-- using variable  for taking input from user
+INSERT INTO EMP_39 VALUES(
+	&ROLL, '&NAME', '&JOB', &MANAGER, '&HDATE', &SALARY, &COMM, '&DEPT');
+
+-- all records are cleared
+delete from <table_name>;
+-- records which have roll 1 are deleted
+delete from <table_name> where roll=1;
+
+update <table> set 
+	-- all roll record are updated
+	roll=65
+	-- all roll from 0 to 65 are updated
+	roll=roll+65
+
+	where name like 'Abc';
+
+-- <> : not equal to
